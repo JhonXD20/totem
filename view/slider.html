@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slider com Toque na Tela</title>
+    <style>
+        /* Estilos base */
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f0f0f0; /* Cor de fundo para visualização */
+            -webkit-user-select: none; /* Safari */
+            -ms-user-select: none; /* IE 10+ */
+            user-select: none; /* Padrão */
+        }
+
+        /* ---------------- SLIDER STYLES ---------------- */
+
+        .slider {
+            width: 80%; /* Largura do slider */
+            height: 500px; /* Altura do slider */
+            border-radius: 10px;
+            overflow: hidden; /* **Oculta as imagens fora da área visível** */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative; /* Para posicionar a navegação */
+            cursor: pointer; /* Indica que a área é clicável */
+        }
+
+        .slides {
+            width: 400%; /* 100% * 4 slides */
+            height: 100%;
+            display: flex; /* **Organiza os slides em linha** */
+            transition: all 0.6s ease-in-out; /* Suaviza a transição */
+        }
+
+        .slides input {
+            display: none; /* **Esconde os radio buttons** */
+        }
+
+        .slide {
+            width: 25%; /* 100% / 4 slides */
+            position: relative;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Garante que a imagem cubra o slide */
+        }
+
+        /* ---------------- MANUAL NAVIGATION (Opcional, mas útil) ---------------- */
+        .navigation-manual {
+            position: absolute;
+            width: 100%;
+            margin-top: -40px;
+            display: flex;
+            justify-content: center;
+            z-index: 10;
+        }
+        
+        .manual-btn {
+            border: 2px solid #fff;
+            padding: 5px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 5px;
+        }
+
+        .manual-btn:hover {
+            background: #fff;
+        }
+        
+        /* ---------------- AUTOMATIC NAVIGATION ---------------- */
+        .navigation-auto {
+            position: absolute;
+            width: 100%;
+            margin-top: calc(500px - 40px);   /* Ajusta a posição vertical */
+            display: flex;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .navigation-auto div {
+            border: 2px solid #fff;
+            padding: 5px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            margin: 0 5px;
+        }
+
+        /* ---------------- TRANSITION LOGIC ---------------- */
+        #radio1:checked ~ .first {
+            margin-left: 0;
+        }
+        #radio2:checked ~ .first {
+            margin-left: -25%; /* Move 1 slide para a esquerda */
+        }
+        #radio3:checked ~ .first {
+            margin-left: -50%; /* Move 2 slides para a esquerda */
+        }
+        #radio4:checked ~ .first {
+            margin-left: -75%; /* Move 3 slides para a esquerda */
+        }
+
+        /* Destaca o botão de navegação automático ativo */
+        #radio1:checked ~ .navigation-auto .auto-btn1,
+        #radio2:checked ~ .navigation-auto .auto-btn2,
+        #radio3:checked ~ .navigation-auto .auto-btn3,
+        #radio4:checked ~ .navigation-auto .auto-btn4 {
+            background: #fff;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="slider" id="content-area">
+        <div class="slides">
+            <input type="radio" name="radio-btn" id="radio1" checked>
+            <input type="radio" name="radio-btn" id="radio2">
+            <input type="radio" name="radio-btn" id="radio3">
+            <input type="radio" name="radio-btn" id="radio4">
+
+            <div class="slide first">
+                <img src="https://picsum.photos/800/400?random=1" alt="Slide 1">
+            </div>
+            <div class="slide">
+                <img src="https://picsum.photos/800/400?random=2" alt="Slide 2">
+            </div>
+            <div class="slide">
+                <img src="https://picsum.photos/800/400?random=3" alt="Slide 3">
+            </div>
+            <div class="slide">
+                <img src="https://picsum.photos/800/400?random=4" alt="Slide 4">
+            </div>
+
+            <div class="navigation-auto">
+                <div class="auto-btn1"></div>
+                <div class="auto-btn2"></div>
+                <div class="auto-btn3"></div>
+                <div class="auto-btn4"></div>
+            </div>
+        </div>
+
+        <div class="navigation-manual">
+            <label for="radio1" class="manual-btn"></label>
+            <label for="radio2" class="manual-btn"></label>
+            <label for="radio3" class="manual-btn"></label>
+            <label for="radio4" class="manual-btn"></label>
+        </div>
+    </div>
+
+    <script>
+        let counter = 1;
+        const totalSlides = 4;
+        const slider = document.querySelector('.slider');
+
+        // Função para avançar para a próxima imagem
+        function nextImage() {
+            counter++;
+            if (counter > totalSlides) {
+                counter = 1;
+            }
+            document.getElementById('radio' + counter).checked = true;
+        }
+
+        // Função para voltar para a imagem anterior
+        function prevImage() {
+            counter--;
+            if (counter < 1) {
+                counter = totalSlides;
+            }
+            document.getElementById('radio' + counter).checked = true;
+        }
+
+        // --- NOVA LÓGICA DE NAVEGAÇÃO POR TOQUE/CLIQUE ---
+        slider.addEventListener('click', function(event) {
+            // Pega as dimensões e a posição do slider na tela
+            const rect = slider.getBoundingClientRect();
+
+            // Calcula o ponto médio horizontal do slider
+            const midPoint = rect.left + rect.width / 2;
+
+            // Verifica se o clique ocorreu na metade direita
+            if (event.clientX > midPoint) {
+                nextImage();
+            } else { // Se não, ocorreu na metade esquerda
+                prevImage();
+            }
+        });
+
+    </script>
+</body>
+</html>

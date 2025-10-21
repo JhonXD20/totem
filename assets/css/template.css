@@ -16,7 +16,7 @@
     }
 
     .logo img {
-        max-width: 320px;
+        max-width: 200px;
         height: auto;
         padding: 5px;
         border-bottom: 1px solid #a3a2a2 !important; 
@@ -36,11 +36,11 @@
         z-index: -1;
         aspect-ratio: 16 / 9; /* 🔑 mantém proporção da imagem */
     }
-    .logo-secretaria {
+    .logo-secretaria{
         position: fixed;
         right: 20px;
         bottom: 20px;
-        max-width: 300px;
+        max-width: 250px; 
         height: auto;
         margin: 1rem 0;
     }

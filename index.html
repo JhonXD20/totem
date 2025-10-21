@@ -1,147 +1,118 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Heróis do Tocantins</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="./assets/css/style.css">
-
-  <!-- <style>
-    body {
-      height: 100vh;
-      margin: 0;
-      background: linear-gradient(to bottom right, rgb(18, 68, 181), rgb(255,255,255), rgb(255, 216, 0));
-      overflow: hidden; 
-    }
-
-    .main-wrapper {
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .logo-col img {
-      max-height: 70vh; /* mantém logo proporcional */
-      object-fit: contain;
-    }
-
-     .buttons-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: repeat(3, 1fr);
-      gap: 0.3rem;
-      height: 100%;
-      justify-items: center;
-      align-items: center;
-     }
-
-    .card-link {
-      text-decoration: none;
-      color: inherit;
-    }
-    .card-link:hover .card {
-      transform: scale(1.05);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    }
-    .card {
-      border: none;
-      background: transparent !important;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      flex: 1 1 calc(33.33% - 1rem) !important; /* 3 botões por linha */
-      max-width: 200px;
-      padding: 5px;
-    }
-    .card img {
-      max-width: 100%;
-      height: auto;
-    }
-  </style> -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memorial Heróis do Tocantins</title>
+    <link rel="stylesheet" href="./assets/css/styles.css">
+    <style>
+        a.nav-item {
+            display: block; /* Faz o link ocupar todo o espaço */
+            text-decoration: none; /* Remove sublinhado */
+            color: inherit; /* Mantém a cor do texto */
+        }
+    </style>
 </head>
 <body>
-  <main class="main-wrapper">
-    <div class="container-fluid h-100">
-      <div class="row h-100 align-items-center justify-content-center">
+    <div class="container">
+        <!-- Header com logo -->
+        <header class="header">
+            <div class="logo-container">
+                <div class="logo-tree">
+                    <div class="logo-col">
+                        <img src="./img/logo-vertical-longa.png" alt="Logo Memorial Heróis do Tocantins">
+                    </div>
+                </div>
+            </div>
+        </header>
 
-        <!-- Logo -->
-        <div class="col-lg-3 col-md-4 col-12 text-center logo-col mb-3 mb-md-0">
-          <img src="img/Logo_Vertical_01.png" class="img-fluid" alt="Logo">
-        </div>
-
-        <!-- Botões -->
-        <div class="col-lg-9 col-md-8 col-12 h-100 d-flex align-items-center">
-          <div class="buttons-grid w-100">
-
-            <a href="template/template.html?page=criacao-do-tocantins.html" class="card-link">
-              <div class="card">
-                <img src="img/botoes/BTN_Criacao.png" alt="Criação do Tocantins">
-                <h6 class="text-center mt-2 fs-5">Criação do Tocantins</h6>
-              </div>
+        <!-- Grid de navegação -->
+        <main class="navigation-grid">
+            
+            <a href="template/template.html?page=criacao-do-tocantins.html" class="nav-item" data-section="criacao">
+                <div class="nav-icon">
+                    <div class="icon-circle">
+                        <img src="./img/botoes/BTN_Criacao.png" alt="Criação do Tocantins">
+                    </div>
+                </div>
+                <h3>CRIAÇÃO DO<br>TOCANTINS</h3>
             </a>
 
-            <a href="template/template.html?page=historia-porto-nacional.html" class="card-link">
-              <div class="card">
-                <img src="img/botoes/BTN_Historia.png" alt="História de Porto Nacional">
-                <h6 class="text-center mt-2 fs-5">Hitória de Porto Nacional</h6>
-              </div>
+            <a href="template/template.html?page=historia-de-porto-nacional.html" class="nav-item" data-section="historia">
+                <div class="nav-icon">
+                    <div class="icon-circle">
+                        <img src="./img/botoes/BTN_Historia.png" alt="História de Porto Nacional">
+                    </div>
+                </div>
+                <h3>HISTÓRIA DE<br>PORTO NACIONAL</h3>
             </a>
 
-            <a href="template/template.html?page=movimentos-emancipacionistas.html" class="card-link">
-              <div class="card">
-                <img src="img/botoes/BTN_Movimentos.png" alt="Movimentos Emancipacionistas">
-                <h6 class="text-center mt-2 fs-5">Movimentos Emancipacionistas</h6>
-              </div>
+            <a href="template/template.html?page=movimentos-emancipacionistas.html" class="nav-item" data-section="movimentos">
+                <div class="nav-icon">
+                    <div class="icon-circle">
+                        <img src="./img/botoes/BTN_Movimentos.png" alt="Movimentos Emancipacionistas">
+                    </div>
+                </div>
+                <h3>MOVIMENTOS<br>EMANCIPACIONISTAS</h3>
             </a>
 
-            <a href="template/template.html?page=herois-do-tocantins-lista.html" class="card-link">
-              <div class="card">
-                <img src="img/botoes/BTN_Herois.png" alt="Heróis do Tocantins">
-                <h6 class="text-center mt-2 fs-5">Hérois do Tocantins</h6>
-              </div>
+            <a href="template/template.html?page=herois-do-tocantins.html" class="nav-item" data-section="herois">
+                <div class="nav-icon">
+                    <div class="icon-circle">
+                        <img src="./img/botoes/BTN_Herois.png" alt="Heróis do Tocantins">
+                    </div>
+                </div>
+                <h3>HERÓIS DO<br>TOCANTINS</h3>
             </a>
 
-            <a href="template/template.html?page=o-memorial.html" class="card-link">
-              <div class="card">
-                <img src="img/botoes/BTN_Memorial.png" alt="O Memorial">
-                <h6 class="text-center mt-2 fs-5">O Memorial</h6>
-              </div>
+            <a href="template/template.html?page=o-memorial.html" class="nav-item" data-section="memorial">
+                <div class="nav-icon">
+                    <div class="icon-circle">
+                        <img src="./img/botoes/BTN_Memorial.png" alt="O Memorial">
+                    </div>
+                </div>
+                <h3>O MEMORIAL</h3>
             </a>
 
-            <a href="template/template.html?page=patrimonio-cultural.html" class="card-link">
-              <div class="card">
-                <img src="img/botoes/BTN_Patrimonio.png" alt="Patrimônio Cultural">
-                <h6 class="text-center mt-2 fs-5">Patrimônio Cultural</h6>
-              </div>
+            <a href="template/template.html?page=patrimonio-cultural.html" class="nav-item" data-section="patrimonio">
+                <div class="nav-icon">
+                    <div class="icon-circle">
+                        <img src="./img/botoes/BTN_Patrimonio.png" alt="Patrimônio Cultural">
+                    </div>
+                </div>
+                <h3>PATRIMÔNIO<br>CULTURAL</h3>
             </a>
 
-            <a href="template/template.html?page=atrativos-turisticos.html" class="card-link">
-              <div class="card">
-                <img src="img/botoes/BTN_Atrativos.png" alt="Atrativos Turísticos">
-                <h6 class="text-center mt-2 fs-5">Atrativos Turísticos</h6>
-              </div>
+            <a href="template/template.html?page=atrativos-turisticos.html" class="nav-item" data-section="atrativos">
+                <div class="nav-icon">
+                    <div class="icon-circle">
+                        <img src="./img/botoes/BTN_Atrativos.png" alt="Atrativos Turísticos">
+                    </div>
+                </div>
+                <h3>ATRATIVOS<br>TURÍSTICOS</h3>
             </a>
 
-            <a href="template/template.html?page=referencias-bibliograficas.html" class="card-link">
-              <div class="card">
-                <img src="img/botoes/BTN_Referencias.png" alt="Referências Bibliográficas">
-                <h6 class="text-center mt-2 fs-5">Referências Bibliográficas</h6>
-              </div>
+            <a href="template/template.html?page=referencias-bibliograficas.html" class="nav-item" data-section="referencias">
+                <div class="nav-icon">
+                    <div class="icon-circle">
+                        <img src="./img/botoes/BTN_Referencias.png" alt="Referências Bibliográficas">
+                    </div>
+                </div>
+                <h3>REFERÊNCIAS<br>BIBLIOGRÁFICAS</h3>
             </a>
 
-            <a href="template/template.html?page=videos.html" class="card-link">
-              <div class="card">
-                <img src="img/botoes/BTN_Videos.png" alt="Vídeos">
-                <h6 class="text-center mt-2 fs-5">Vídeos</h6>
-              </div>
+            <a href="template/template.html?page=videos.html" class="nav-item" data-section="videos">
+                <div class="nav-icon">
+                    <div class="icon-circle">
+                        <img src="./img/botoes/BTN_Videos.png" alt="Vídeos">
+                    </div>
+                </div>
+                <h3>VÍDEOS</h3>
             </a>
 
-          </div>
-        </div>
-      </div>
+        </main>
     </div>
-  </main>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./assets/js/script.js"></script>
 </body>
 </html>
