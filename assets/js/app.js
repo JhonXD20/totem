@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     async function loadView(view) {
         try {
-            const response = await fetch(`../view/${view}`);
+            const response = await fetch(`../conteudo/${view}`);
             if (!response.ok) throw new Error("Erro ao carregar view");
             const html = await response.text();
             contentArea.innerHTML = html;
