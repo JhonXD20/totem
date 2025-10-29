@@ -19,6 +19,7 @@
         max-width: 200px;
         height: auto;
         padding: 5px;
+        z-index: 11;
         border-bottom: 1px solid #a3a2a2 !important; 
     }
 
@@ -43,4 +44,24 @@
         max-width: 250px; 
         height: auto;
         margin: 1rem 0;
+    }
+    .botao-esquerda {
+        position: fixed;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+        width: 49%;
+        height: 100%;
+        cursor: pointer;
+        z-index: 10;
+    }
+    .botao-direita {
+        position: fixed;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+        width: 49%;
+        height: 100%;
+        cursor: pointer;
+        z-index: 10;
     }

@@ -18,4 +18,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // Usa operador ternário
     page ? loadView(page) : contentArea.innerHTML = `<div class="text-center">Selecione uma view no menu</div>`;
 });
+
+addEventListener(click, () => {
+    const botaoEsquerda = document.getElementById("botao-esquerda");
+    const botaoDireita = document.getElementById("botao-direita");
+
     
+
+});  
