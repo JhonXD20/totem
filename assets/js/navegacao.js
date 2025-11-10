@@ -73,33 +73,41 @@ document.addEventListener('DOMContentLoaded', () => {
      * Retorna 'true' se teve sucesso ou 'false' se falhou (ex: 404).
      */
     async function carregarConteudo(pagePath) {
-        // O template.html está em /template/, o conteúdo está na raiz (../)
-        const url = `../conteudo/${pagePath}`;
+    const url = `../conteudo/${pagePath}`;
 
-        try {
-            const response = await fetch(url);
+    try {
+        const response = await fetch(url);
 
-            if (!response.ok) {
-                // Se o arquivo não foi encontrado (404), avisa no console e retorna false
-                console.warn(`Arquivo não encontrado: ${url}`);
-                return false;
-            }
-
-            // Se encontrou, injeta o HTML
-            const html = await response.text();
-            contentArea.innerHTML = html;
-
-            // Analisa o path para redefinir o estado da paginação
-            analisarPath(pagePath);
-            return true; // Sucesso
-
-        } catch (error) {
-            console.error("Falha ao carregar conteúdo:", error);
-            contentArea.innerHTML = `<p>Erro ao carregar a página '${pagePath}'.</p>`;
-            analisarPath(''); // Reseta o estado (esconde botões)
+        if (!response.ok) {
+            console.warn(`Arquivo não encontrado: ${url}`);
             return false;
         }
+
+        // Inicia o fade-out
+        contentArea.classList.add('fade-out');
+
+        // Aguarda a transição antes de trocar o conteúdo
+        await new Promise(resolve => setTimeout(resolve, 400)); // 400ms = duração do fade
+
+        // Troca o conteúdo
+        const html = await response.text();
+        contentArea.innerHTML = html;
+
+        // Faz o fade-in
+        contentArea.classList.remove('fade-out');
+
+        // Atualiza estado de paginação
+        analisarPath(pagePath);
+        return true;
+
+    } catch (error) {
+        console.error("Falha ao carregar conteúdo:", error);
+        contentArea.innerHTML = `<p>Erro ao carregar a página '${pagePath}'.</p>`;
+        analisarPath('');
+        return false;
     }
+}
+
 
     /**
      * Analisa o 'pagePath' para descobrir se é paginável

@@ -65,3 +65,11 @@
         cursor: pointer;
         z-index: 10;
     }
+    #content-area {
+    opacity: 1;
+    transition: opacity 0.4s ease; /* Duração e suavidade da animação */
+    }
+
+    #content-area.fade-out {
+    opacity: 0;
+    }
