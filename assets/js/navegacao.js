@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
         contentArea.classList.remove('fade-out');
 
         // Atualiza estado de paginação
-        analisarPath(pagePath);
+        analisarPath(pagePath.replace('../conteudo/', ''));
         return true;
 
     } catch (error) {
@@ -149,7 +149,8 @@ document.addEventListener('DOMContentLoaded', () => {
      * Atualiza a barra de endereço do navegador (?page=...) sem recarregar.
      */
     function atualizarURLBrowser(pagePath) {
-        const newUrl = `${window.location.pathname}?page=${pagePath}`;
+        const cleanedPath = pagePath.replace('../conteudo/', '');
+        const newUrl = `${window.location.pathname}?page=${cleanedPath}`;
         // pushState atualiza a URL na barra de endereço
         window.history.pushState({ path: newUrl }, '', newUrl);
     }
@@ -169,8 +170,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // 3. Carrega o conteúdo inicial
         if (initialPage) {
+            const fullPath = `../conteudo/${initialPage}`;
             contentArea.innerHTML = '<p>Carregando...</p>';
-            carregarConteudo(initialPage);
+            carregarConteudo(fullPath);
         } else {
             // Se ninguém passou um ?page=...
             contentArea.innerHTML = '<h1>Erro: Nenhuma página de conteúdo foi especificada.</h1>';
