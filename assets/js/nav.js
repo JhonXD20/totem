@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!isPaginated) return; // Se não for paginável, não faz nada
 
         const proximoIndice = currentIndex + 1;
-        const proximaPagina = `../conteudo/${basePath}conteudo-${proximoIndice}.html`;
+        const proximaPagina = `${basePath}conteudo-${proximoIndice}.html`;
 
         // Tenta carregar a próxima página
         const sucesso = await carregarConteudo(proximaPagina);
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return; // Para a execução
         }
 
-        const paginaAnterior = `../conteudo/${basePath}conteudo-${indiceAnterior}.html`;
+        const paginaAnterior = `${basePath}conteudo-${indiceAnterior}.html`;
         
         // Tenta carregar a página anterior e atualiza a URL se conseguir
         const sucesso = await carregarConteudo(paginaAnterior);
@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
      * Retorna 'true' se teve sucesso ou 'false' se falhou (ex: 404).
      */
     async function carregarConteudo(pagePath) {
-    const url = `../conteudo/${pagePath}`;
+    const url = `/conteudo/${pagePath}`;
 
     try {
         const response = await fetch(url);
@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
         contentArea.classList.remove('fade-out');
 
         // Atualiza estado de paginação
-        analisarPath(pagePath.replace('../conteudo/', ''));
+        analisarPath(pagePath.replace('/conteudo/', ''));
         return true;
 
     } catch (error) {
@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
      * Atualiza a barra de endereço do navegador (?page=...) sem recarregar.
      */
     function atualizarURLBrowser(pagePath) {
-        const cleanedPath = pagePath.replace('../conteudo/', '');
+        const cleanedPath = pagePath.replace('/conteudo/', '');
         const newUrl = `${window.location.pathname}?page=${cleanedPath}`;
         // pushState atualiza a URL na barra de endereço
         window.history.pushState({ path: newUrl }, '', newUrl);
@@ -170,9 +170,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // 3. Carrega o conteúdo inicial
         if (initialPage) {
-            const fullPath = `../conteudo/${initialPage}`;
             contentArea.innerHTML = '<p>Carregando...</p>';
-            carregarConteudo(fullPath);
+            carregarConteudo(initialPage);
         } else {
             // Se ninguém passou um ?page=...
             contentArea.innerHTML = '<h1>Erro: Nenhuma página de conteúdo foi especificada.</h1>';
