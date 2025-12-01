@@ -1,4 +1,5 @@
     body{
+        display: border-box;
         height: 100vh;
         margin: 0 !important;
     }
@@ -14,12 +15,18 @@
         margin: 1rem 0;
         
     }
+    .link-logo{
+        margin-left: 42%;
+        margin-right: 50%;
+        display: block;
+        width: 200px;
+        z-index: 15;
+    }
 
     .logo img {
         max-width: 200px;
         height: auto;
         padding: 5px;
-        z-index: 11;
         border-bottom: 1px solid #a3a2a2 !important; 
     }
 
