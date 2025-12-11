@@ -147,7 +147,7 @@ body {
 
 /* Imagens dos ícones */
 .icon-circle img {
-    width: 100%;
+    width: 150%;
     height: 100%;
     object-fit: contain;
     border-radius: 50%;
@@ -192,28 +192,60 @@ body {
 }
 
 /* Responsividade para tablets */
+
 @media (max-width: 1024px) {
-    .navigation-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1.2rem;
-        padding: 1.5rem;
-    }
     
-    .main-title {
-        font-size: 2rem;
+    .container {
+        /* Espaço moderado entre a logo e o menu */
+        gap: 1rem; 
+        padding: 1rem 2rem; /* Mais margem nas laterais para não colar na borda */
+        overflow-x: hidden;
+    }
+
+    /* --- 1. LOGO: O MEIO TERMO (25% da largura) --- */
+    .logo-col {
+        flex: 0 0 25%; /* Ocupa 1/4 da tela */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .logo-tree {
+        width: 100%;
+        max-width: none; 
+    }
+
+    .logo-col img {
+        /* Altura controlada: nem pequena, nem estourada */
+        max-height: 65vh; 
+        width: auto;
+        max-width: 100%; /* Garante que não vaze para os lados */
+    }
+
+    /* --- 2. GRID: 4 Colunas para caber tudo --- */
+    .navigation-grid {
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 1rem; /* Espaço padrão */
+        padding: 0;
     }
     
     .nav-item {
-        min-height: 160px;
-        padding: 1.2rem;
+        width: auto; 
+        min-height: 150px; 
+        padding: 1rem;
     }
     
     .nav-icon {
-        width: 70px;
-        height: 70px;
+        width: 65px;
+        height: 65px;
+        margin-bottom: 0.5rem;   
+    }
+
+    .nav-item h3 {
+        font-size: 0.8rem; 
+        margin-top: 0.5rem;
     }
 }
-
 /* Responsividade para smartphones */
 @media (max-width: 768px) {
     .navigation-grid {
