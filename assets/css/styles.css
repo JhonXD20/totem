@@ -147,8 +147,8 @@ body {
 
 /* Imagens dos ícones */
 .icon-circle img {
-    width: 150%;
-    height: 100%;
+    width: 75px;
+    height: auto;
     object-fit: contain;
     border-radius: 50%;
 }
