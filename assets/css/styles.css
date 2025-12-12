@@ -68,7 +68,7 @@ body {
 .navigation-grid {
     flex: 1;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 1.5rem;
     padding: 1rem;
     max-height: 90vh; /* impede scroll vertical */
@@ -155,7 +155,7 @@ body {
 
 /* Títulos dos itens */
 .nav-item h3 {
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-weight: bold;
     color: #2C3E50;
     text-transform: uppercase;

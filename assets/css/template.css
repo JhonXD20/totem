@@ -1,7 +1,13 @@
-    body{
-        display: border-box;
-        height: 100vh;
-        margin: 0 !important;
+    body {
+    box-sizing: border-box; /* Correção aqui */
+    height: 100vh;
+    margin: 0 !important;
+    overflow: hidden; /* Evita barra de rolagem dupla na página inteira */
+    position: relative;
+    }
+
+    *, *:before, *:after {
+    box-sizing: inherit;
     }
 
     .gradiente-bar {
@@ -12,7 +18,7 @@
 
     .logo {
         text-align: center;
-        margin: 1rem 0;
+        margin-bottom: 1rem;
         
     }
     .link-logo{
@@ -80,3 +86,58 @@
     #content-area.fade-out {
     opacity: 0;
     }
+
+    /* =========================================
+MEDIA QUERY: Ajuste para 1024x768 (Tablets/Laptops pequenos)
+   ========================================= */
+@media(max-width: 1024px) {
+
+    /* 1. Corrige o "estouro" do conteúdo de texto/imagem */
+    #content-area {
+        /* Define uma altura máxima para o conteúdo não vazar da tela */
+        max-height: 65vh; 
+        /* Garante que o texto fique ACIMA dos botões laterais invisíveis */
+        position: relative;
+        /* Margem interna para não colar na borda */
+        padding: 0 2rem; 
+    }
+
+    /* 2. Centraliza o logo principal corretamente */
+    .link-logo {
+        width: 150px; /* Reduz um pouco o tamanho */
+        margin: 1rem auto; /* Centraliza horizontalmente de verdade */
+        display: flex;
+        justify-content: center;
+        /* Remove as margens percentuais antigas que quebravam o layout */
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .logo img {
+        max-width: 100%; /* Garante que a imagem respeite a div pai */
+        height: auto;
+    }
+
+    /* 3. Ajusta a ilustração do fundo para não ocupar muito espaço */
+    .ilustration {
+        height: 20vh; /* Diminui a altura para sobrar espaço pro texto */
+
+    }
+
+    /* 4. Conserta o Logo da Secretaria deslocado */
+    .logo-secretaria {
+        max-width: 150px; /* Reduz o tamanho para não brigar com o conteúdo */
+        right: 15px;
+        bottom: 15px;
+        /* Garante que fique acima do fundo, mas não bloqueie cliques importantes */
+        z-index: 15; 
+    }
+    .imagem{
+        text-align: center;
+    }
+    .imagem img{
+        max-width: 400px !important;
+    }
+
+
+}
