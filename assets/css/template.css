@@ -111,6 +111,7 @@ MEDIA QUERY: Ajuste para 1024x768 (Tablets/Laptops pequenos)
         /* Remove as margens percentuais antigas que quebravam o layout */
         margin-left: auto;
         margin-right: auto;
+        z-index: 20;
     }
     
     .logo img {

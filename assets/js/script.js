@@ -146,6 +146,25 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(item);
     });
     
+    // Adiciona o título ao link do template ao clicar (para que o template saiba qual título mostrar)
+    navItems.forEach(item => {
+        item.addEventListener('click', function(e) {
+            const h3 = this.querySelector('h3');
+            if (h3) {
+                const titleText = h3.textContent.trim().replace(/\s+/g, ' ');
+                try {
+                    const url = new URL(this.href, window.location.origin);
+                    url.searchParams.set('title', titleText);
+                    this.href = url.toString();
+                } catch (err) {
+                    // Fallback simples: concatena o parâmetro (caso a URL seja relativa e o construtor falhe)
+                    const sep = this.href.includes('?') ? '&' : '?';
+                    this.href = this.href + sep + 'title=' + encodeURIComponent(titleText);
+                }
+            }
+        });
+    });
+    
     // Adiciona suporte a gestos de swipe (opcional)
     let startX, startY, endX, endY;
     

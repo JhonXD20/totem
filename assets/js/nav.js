@@ -150,7 +150,10 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     function atualizarURLBrowser(pagePath) {
         const cleanedPath = pagePath.replace('/conteudo/', '');
-        const newUrl = `${window.location.pathname}?page=${cleanedPath}`;
+        const params = new URLSearchParams(window.location.search);
+        // Mantém outros parâmetros (ex: ?title=...)
+        params.set('page', cleanedPath);
+        const newUrl = `${window.location.pathname}?${params.toString()}`;
         // pushState atualiza a URL na barra de endereço
         window.history.pushState({ path: newUrl }, '', newUrl);
     }
@@ -163,6 +166,15 @@ document.addEventListener('DOMContentLoaded', () => {
         // 1. Lê os parâmetros da URL
         const params = new URLSearchParams(window.location.search);
         const initialPage = params.get('page'); // Pega o valor de ?page=...
+
+        // Se houver um título passado via query (?title=...), aplica no document.title e no h1 visível
+        const titleParam = params.get('title');
+        if (titleParam) {
+            const t = titleParam.replace(/\+/g, ' ');
+            document.title = t;
+            const pageTitleEl = document.getElementById('page-title');
+            if (pageTitleEl) pageTitleEl.textContent = t;
+        }
 
         // 2. Adiciona os cliques nos botões
         btnDireita.addEventListener('click', navegarDireita);
