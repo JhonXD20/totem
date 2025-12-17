@@ -3,6 +3,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const navItems = document.querySelectorAll('.nav-item');
     const hands = document.querySelectorAll('.hand');
     
+    // Evitar chamada de vibração antes de qualquer interação do usuário (previne avisos do navegador)
+    let userActivation = false;
+    document.addEventListener('pointerdown', function() {
+        userActivation = true;
+    }, { capture: true, once: true });
+    
     // Animação das mãos na árvore
     function animateHands() {
         hands.forEach((hand, index) => {
@@ -25,9 +31,13 @@ document.addEventListener('DOMContentLoaded', function() {
             this.style.transform = 'scale(0.95)';
             this.style.transition = 'transform 0.1s ease';
             
-            // Vibração tátil se disponível
-            if (navigator.vibrate) {
-                navigator.vibrate(50);
+            // Vibração tátil se disponível (só após interação do usuário para evitar bloqueio)
+            if (navigator.vibrate && userActivation) {
+                try {
+                    navigator.vibrate(50);
+                } catch (e) {
+                    // Ignora erros de intervenção do navegador
+                }
             }
         });
         
