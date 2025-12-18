@@ -7,7 +7,12 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="../fontawesome-free-7.1.0-web/css/all.min.css"
+    />
     <link rel="stylesheet" href="../assets/css/template.css" />
+
     <title>Template</title>
     <style>
       section {
@@ -16,7 +21,6 @@
         align-items: center;
         justify-content: center;
         gap: 40px;
-        
       }
 
       .conteudo {
@@ -32,9 +36,48 @@
         margin-bottom: 16px;
       }
       img {
-        width: 300PX;
+        width: 300px;
         height: auto;
         border-radius: 8px;
+      }
+
+      /* Instruções de navegação: exibidas nos primeiros 5 segundos */
+      #nav-instructions {
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.85);
+        color: #fff;
+        padding: 12px 18px;
+        border-radius: 8px;
+        z-index: 1080;
+        font-size: 14px;
+        display: none;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+      }
+
+      /* Classe que faz piscar 3 vezes (usada via JS) */
+      .blink {
+        animation: blink-animation 0.6s linear 0s 3;
+      }
+
+      @keyframes blink-animation {
+        0% {
+          opacity: 1;
+        }
+        25% {
+          opacity: 0;
+        }
+        50% {
+          opacity: 1;
+        }
+        75% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
       }
     </style>
   </head>
@@ -42,10 +85,18 @@
   <body>
     <header>
       <div class="gradiente-bar"></div>
+      <button
+        type="button"
+        class="btn btn-voltar"
+        onclick="location.href='../index.html'"
+        aria-label="Voltar"
+      >
+        <img src="../img/voltar.png" alt="Voltar" />
+      </button>
       <div class="link-logo" onclick="location.href='../index.html'">
-          <div class="logo">
-            <img src="../img/logo_horizontal1.png" class=""/>
-          </div>
+        <div class="logo">
+          <img src="../img/logo_horizontal1.png" class="" />
+        </div>
       </div>
     </header>
     <main>
@@ -67,7 +118,105 @@
     <div class="botao-direita" id="botao-direita"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../fontawesome-free-7.1.0-web/js/all.min.js"></script>
     <script src="../assets/js/app.js"></script>
     <script src="../assets/js/nav.js"></script>
+
+    <!-- Instruções de navegação (aparece nos primeiros 5s) -->
+    <div id="nav-instructions">
+      Navegue com clicks na tela a <strong>Esquerda </strong>para <strong> Voltar</strong> e a <strong>Direira</strong> para<strong> Avançar</strong>.
+    </div>
+
+    <script>
+      // Mostra instruções nos primeiros 5 segundos e faz piscar 3 vezes certos elementos
+      document.addEventListener("DOMContentLoaded", function () {
+        var overlay = document.getElementById("nav-instructions");
+        if (!overlay) return;
+
+        // Mostra o overlay
+        overlay.style.display = "block";
+
+        // Elementos alvo: botões com os IDs conhecidos
+        var targets = [];
+        var left = document.getElementById("botao-esquerda");
+        var right = document.getElementById("botao-direita");
+        if (left) targets.push(left);
+        if (right) targets.push(right);
+
+        // Seletores que possivelmente representam ícones escondidos
+        var hiddenSelectors =
+          '[hidden], .hidden, .d-none, .visually-hidden, [data-hidden="true"]';
+        var hiddenEls = document.querySelectorAll(hiddenSelectors);
+        hiddenEls.forEach(function (el) {
+          // Tratamos apenas elementos que têm aparência de ícone (i, img, .fa ou .icon)
+          var tag = (el.tagName || "").toLowerCase();
+          if (
+            tag === "i" ||
+            tag === "img" ||
+            el.classList.contains("fa") ||
+            el.classList.contains("icon") ||
+            el.classList.contains("icone")
+          ) {
+            targets.push(el);
+          }
+        });
+
+        // Manter lista dos elementos que foram temporariamente revelados para restaurar depois
+        var tempShown = [];
+
+        targets.forEach(function (el) {
+          var cs = window.getComputedStyle(el);
+          var wasHidden =
+            cs.display === "none" ||
+            cs.visibility === "hidden" ||
+            el.hasAttribute("hidden") ||
+            el.classList.contains("d-none") ||
+            el.classList.contains("visually-hidden") ||
+            el.getAttribute("aria-hidden") === "true";
+
+          if (wasHidden) {
+            // guardar estado original
+            el.__originalDisplay = el.style.display || "";
+            el.__originalVisibility = el.style.visibility || "";
+            el.__hadHiddenAttr = el.hasAttribute("hidden");
+
+            el.classList.remove("d-none", "visually-hidden", "hidden");
+            el.removeAttribute("hidden");
+            el.style.display =
+              el.tagName.toLowerCase() === "img" ||
+              el.tagName.toLowerCase() === "i"
+                ? "inline-block"
+                : "block";
+            el.style.visibility = "visible";
+            tempShown.push(el);
+          }
+
+          // Forçar reflow e aplicar a classe de piscar (3 iterações definidas em CSS)
+          void el.offsetWidth;
+          el.classList.add("blink");
+
+          // Remover a classe ao término da animação
+          var handler = function () {
+            el.classList.remove("blink");
+            el.removeEventListener("animationend", handler);
+          };
+          el.addEventListener("animationend", handler);
+        });
+
+        // Ocultar overlay e restaurar elementos após 5 segundos
+        setTimeout(function () {
+          overlay.style.display = "none";
+          tempShown.forEach(function (el) {
+            // restaurar display/visibility originais de forma segura
+            if (el.__originalDisplay) el.style.display = el.__originalDisplay;
+            else el.style.display = "none";
+            if (el.__originalVisibility)
+              el.style.visibility = el.__originalVisibility;
+            // restaurar hidden attribute se existia
+            if (el.__hadHiddenAttr) el.setAttribute("hidden", "");
+          });
+        }, 8000);
+      });
+    </script>
   </body>
 </html>

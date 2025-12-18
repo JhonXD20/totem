@@ -21,6 +21,21 @@
         margin-bottom: 1rem;
         
     }
+    .btn-voltar {
+    position: absolute;
+    left: 12px;
+    top: calc(3vh + 6px);
+    z-index: 25;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    }
+
+    .btn-voltar img{
+        top: 20px;
+        width: 80px;
+        height: auto;
+    }
     .link-logo{
         margin-left: 42%;
         margin-right: 50%;
@@ -58,26 +73,30 @@
         height: auto;
         margin: 1rem 0;
     }
-    .botao-esquerda {
+    .botao-esquerda, .botao-direita {
         position: fixed;
-        top: 50%;
-        left: 0;
-        transform: translateY(-50%);
-        width: 49%;
+        top: 0; /* Começa do topo para cobrir a altura toda */
         height: 100%;
-        cursor: pointer;
-        z-index: 10;
-    }
-    .botao-direita {
-        position: fixed;
-        top: 50%;
-        right: 0;
-        transform: translateY(-50%);
         width: 49%;
-        height: 100%;
-        cursor: pointer;
         z-index: 10;
+        cursor: pointer;
+        
+        /* Centralização dos ícones */
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
+
+    .botao-esquerda { left: 0; }
+    .botao-direita { right: 0; }
+
+    .botao-esquerda i, .botao-direita i {
+    opacity: 0; /* Escondidos por padrão */
+    font-size: 2rem; /* Ajuste o tamanho conforme necessário */
+    transition: opacity 0.3s ease;
+    }   
+
+
     #content-area {
     opacity: 1;
     transition: opacity 0.4s ease; /* Duração e suavidade da animação */
@@ -116,6 +135,14 @@ MEDIA QUERY: Ajuste para 1024x768 (Tablets/Laptops pequenos)
     
     .logo img {
         max-width: 100%; /* Garante que a imagem respeite a div pai */
+        height: auto;
+    }
+    .btn-voltar {
+    left: 12px;
+    top: 2rem;
+    }
+    .btn-voltar img{
+        width: 60px;
         height: auto;
     }
 
